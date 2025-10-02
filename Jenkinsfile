@@ -1,13 +1,11 @@
 pipeline {
-    agent any
+    agent {
+        docker { image 'node:22.20.0-alpine3.22' }
+    }
     stages {
-        stage('Build') {
+        stage('Test') {
             steps {
-                sh 'echo "Hello World"'
-                sh '''
-                    echo "Multiline shell steps works too"
-                    ls -lah
-                '''
+                sh 'node --eval "console.log(process.arch,process.platform)"'
             }
         }
     }
